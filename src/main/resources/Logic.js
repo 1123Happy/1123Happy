@@ -27,3 +27,30 @@ $( "#getTradeAccumulation" ).click(function() {
          $("#t-sell").val(msg);
         });
 });
+
+
+
+$( "#getOrderAccumulation" ).click(function() {
+  $.ajax({
+    method: "GET",
+    url: host+":"+port+"/gettr"+"/getOrderA",
+     beforeSend: function(request) {
+                request.setRequestHeader("Access-Control-Allow-Origin","*");
+              },
+    data: { p: $("#o-dif").val().trim(), orderType: "BUY" },
+    success:function(msg){
+    $("#o-buy").val(msg);
+    }
+  })
+    $.ajax({
+        method: "GET",
+        url: host+":"+port+"/gettr"+"/getOrderA",
+         beforeSend: function(request) {
+            request.setRequestHeader("Access-Control-Allow-Origin","*");
+          },
+        data: { p: $("#o-dif").val().trim(), orderType: "SELL" }
+      })
+        .done(function( msg ) {
+         $("#o-sell").val(msg);
+        });
+});

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import okhttp3.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ import java.util.List;
 @RequestMapping ("/gettr")
 public class BRestController {
     private WebsocketClient websocketClient=new WebsocketClientImpl();
+    @CrossOrigin (origins = "*")
     @GetMapping ("/getTradeA")
     public ResponseEntity getTradeAccumulation (int time, String tradeType) throws InterruptedException {
         double sum=0;
@@ -39,13 +41,18 @@ public class BRestController {
         websocketClient.closeConnection(id);
         double result= 0;
         for (int i=0; i<dataList.size();i++){
-            if (tradeType.equals("BUY") && dataList.get(i).m==false){
-                result=result+dataList.get(i).q;
+            if (tradeType.equals("BUY") && dataList.get(i).isM()==false){
+                result=result+dataList.get(i).getQ();
             }
-            else if (tradeType.equals("SELL") && dataList.get(i).m==true){
-                result=result-dataList.get(i).q;
+            else if (tradeType.equals("SELL") && dataList.get(i).isM()==true){
+                result=result-dataList.get(i).getQ();
             }
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    @CrossOrigin (origins = "*")
+    @GetMapping ("/getOrderA")
+    public ResponseEntity getTradeAccumulation (double p, String orderType) throws InterruptedException {
+
     }
 }
