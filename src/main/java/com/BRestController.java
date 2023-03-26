@@ -27,6 +27,7 @@ public class BRestController {
     @CrossOrigin (origins = "*")
     @GetMapping ("/getTradeA")
     public ResponseEntity getTradeAccumulation (int time, String tradeType) throws InterruptedException {
+        spotClient.createMarket().time();
         ObjectMapper objectMapper = new ObjectMapper();
         List<TradeData> dataList=new ArrayList<>();
         int id = websocketClient.tradeStream("btcusdt",((i)->{

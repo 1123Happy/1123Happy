@@ -1,13 +1,11 @@
 package com;
 
-import com.binance.connector.client.WebsocketClient;
-import com.binance.connector.client.impl.WebsocketClientImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import javax.annotation.processing.SupportedAnnotationTypes;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableScheduling
 class Main{
     public static void main(String[] args){
 //        WebsocketClient websocketClient = new WebsocketClientImpl();
